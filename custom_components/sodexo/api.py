@@ -2,16 +2,17 @@
 import aiohttp
 import logging
 import json
+from bs4 import BeautifulSoup
 
-from .const import LOGIN_URL, MINHACONTA_URL
+from .const import LOGIN_URL, MYACCOUNT_URL
 from .lib import AccountDetails, parse_html
 
 _LOGGER = logging.getLogger(__name__)
 _LOGGER.setLevel(logging.DEBUG)
 
 
-class SodexoAPI:
-    """Interfaces to https://minhaconta.sodexobeneficios.pt/"""
+class MonizzeAPI:
+    """Interfaces to https://my.monizze.be/"""
     
     def __init__(self, websession):
         self.websession = websession
@@ -23,12 +24,12 @@ class SodexoAPI:
             _LOGGER.debug("Logging in...")
             async with self.websession.get(
                 LOGIN_URL, 
-                params = { 'nif': username, 'pass': password }
+                params = { 'email': username, 'pass': password }
             ) as res:
                 if res.status == 200 and res.content_type == "application/javascript":
                     text = await res.text()
                     obj = json.loads(text)
-                    if obj['sucesso']:
+                    if obj['sucess']:
                         cookie = res.headers['set-cookie']
                         return cookie[0:cookie.find(';')]
                     else:
@@ -42,7 +43,7 @@ class SodexoAPI:
         try:
             _LOGGER.debug("Getting account details...")
             async with self.websession.get(
-                MINHACONTA_URL, 
+                MYACCOUNT_URL, 
                 headers = { 
                     "Cookie": token 
                 }

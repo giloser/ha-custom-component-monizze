@@ -29,7 +29,7 @@ DATA_SCHEMA = vol.Schema(
 
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Sodexo config flow."""
+    """Monizze config flow."""
 
     VERSION = 1
     CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
@@ -46,7 +46,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             if await self._test_credentials(user_input):
                 _LOGGER.debug("Config is valid!")
                 return self.async_create_entry(
-                    title="Sodexo " + user_input['username'], 
+                    title="Monizze " + user_input['username'], 
                     data = user_input
                 ) 
             else:
@@ -62,7 +62,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         """Return true if credentials is valid."""
         session = async_get_clientsession(self.hass, True)
         async with async_timeout.timeout(10):
-            api = SodexoAPI(session)
+            api = MonizzeAPI(session)
             try:
                 await api.login(user_input["username"], user_input["password"])
                 return True

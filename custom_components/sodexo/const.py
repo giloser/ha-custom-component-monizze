@@ -1,20 +1,18 @@
 from typing import Dict
 
-DOMAIN = "sodexo"
+DOMAIN = "monizze"
 PLATFORM = "sensor"
 DOMAIN_DATA = f"{DOMAIN}_data"
 
 DEFAULT_ICON = "mdi:credit-card"
 UNIT_OF_MEASUREMENT = "€"
 
-ATTRIBUTION = "Data provided by https://www.sodexobeneficios.pt/"
+ATTRIBUTION = "Data provided by https://my.monizze.be/"
 
-LOGIN_URL = "https://login.sodexobeneficios.pt/login_processing.php"
-MINHACONTA_URL = "https://minhaconta.sodexobeneficios.pt/"
+LOGIN_URL = "https://my.monizze.be/en/login"
+MYACCOUNT_URL = "https://my.monizze.be/en/mymonizze"
 
-LOGIN_URL_BR = "https://www.sodexobeneficios.com.br/sodexo-club/login/"
-
-COUNTRY_PT = "Portugal"
+COUNTRY_PT = "Belgium"
 
 CONF_COUNTRY = "country"
 CONF_USERNAME = "username"
